@@ -20,19 +20,19 @@ This tool is built upon the following open source libraries
 
 # Pre-Reqs
 
-**Golang**
+**1. Golang**
 Lucit CLI is built on golang.  You will need to have `go` installed - https://go.dev/doc/install
 
 This should be cross platform compatible on Linux, Windows and MacOS
 
-**Application Id**
+**2. Application Id**
 To use the Lucit API - You need an Application ID from the Lucit App you created.
 
 For more information on building a Lucit app and getting your Application ID
 See https://www.lucit.cc/developers/applications
 
-**Bot User and Secret**
-To access to the API, you need to generate a token user and secret.
+**3. Authentication Token and Secret**
+To access to the API, you need to generate an Authenticaion token and secret.
 Tokens are created underneath the "TOKENS" tab of your application
 
 Learn more about creating tokens and secrets at https://www.lucit.cc/post/creating-lucit-application-tokens
@@ -40,6 +40,7 @@ Learn more about creating tokens and secrets at https://www.lucit.cc/post/creati
 # Installation and Setup
 
 **1. Clone the this Repo**
+
 Clone this repo to a local directory on your machine
 
 ```
@@ -47,6 +48,12 @@ git clone https://github.com/lucit-cc/lucit-cli.git
 ```
 
 **2. Initialize your Application**
+
+This sets up your install with your Application ID, Token and Secret
+
+It will also retrieve and store your long-lived Bearer Token.
+
+Under the hood, it is making a call to the [/auth](https://apidocs.lucit.app/#auth-POSTapi-v3-auth) endpoint
 
 ```
 go run main.go init
@@ -58,6 +65,11 @@ go run main.go init
 
 
 **3.  Test your Settings**
+
+This will validate that your settings are correct and that you can access the API.
+
+Under the hood it is getting status and app information by making a
+call to the [/status](https://apidocs.lucit.app/#status-GETapi-v3-status) endpoint
 
 ```
 go run main.go test
@@ -149,17 +161,19 @@ go install
 - `lucit-cli get /status`
 
 
-# get
+# GET
 
 The `get` command simply accepts the endpoint that you are fetching and will return the JSON response from that endpoint
 
-# post and put
-These commands are NOT currently supported from this CLI tool.  The tool can only be used (currently) to make requests to GET endpoints
+# POST and PUT (Not Supported)
 
+These commands are NOT currently supported
+
+`lucit-cli` can only be used (currently) to make requests to `GET` endpoints.
 
 # Some quick Examples
 
-Full documentation is available at https://apidocs.lucit.app/
+Full API documentation of all endpoints is available at https://apidocs.lucit.app/
 
 Here are a few examples GET endpoints to try
 

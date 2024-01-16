@@ -19,7 +19,7 @@ var initCmd = &cobra.Command{
 		output.Header("Lucit CLI API Configuration Setup")
 		output.Info("Welcome to the Lucit CLI API Configuration setup wizard")
 		output.Info("This wizard will help you configure your Lucit API url, tokens and secrets")
-		output.Info("Before continuing, you should have an App ID, a Bot Token and a Bot Secret")
+		output.Info("Before continuing, you should have an App ID, a Token and a Secret")
 
 		output.Break()
 
@@ -44,8 +44,8 @@ var initCmd = &cobra.Command{
 func initV3() {
 
 	promptAndSetString("Enter your Lucit App ID", "lucit_app_id", viper.GetString("lucit_app_id"))
-	promptAndSetString("Enter your Lucit Bot Token", "lucit_bot_token", viper.GetString("lucit_bot_token"))
-	promptAndSetString("Enter your Lucit Bot Secret", "lucit_bot_secret", viper.GetString("lucit_bot_secret"))
+	promptAndSetString("Enter your Lucit Token", "lucit_bot_token", viper.GetString("lucit_bot_token"))
+	promptAndSetString("Enter your Lucit Token Secret", "lucit_bot_secret", viper.GetString("lucit_bot_secret"))
 
 	output.Break()
 
