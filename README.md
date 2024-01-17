@@ -1,5 +1,5 @@
 # Lucit CLI
-A command line tool, written in go, for testing the Lucit API.
+A command line tool, written in go, for testing the Lucit API for Digital Out of Home Applications
 
 This tool requires a Lucit Application ID, an Authorization Token and a Secret
 
@@ -21,9 +21,11 @@ This tool is built upon the following open source libraries
 # Pre-Reqs
 
 **1. Golang**
-Lucit CLI is built on golang.  You will need to have `go` installed - https://go.dev/doc/install
+Lucit CLI is built on **go** and installed using **git**.  You will need to have the following installed
 
-This should be cross platform compatible on Linux, Windows and MacOS
+- `git` installation instructions - https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
+- `go` installation instructions - https://go.dev/doc/install
+
 
 **2. Application Id**
 To use the Lucit API - You need an Application ID from the Lucit App you created.
@@ -46,6 +48,13 @@ Clone this repo to a local directory on your machine
 ```
 git clone https://github.com/lucit-cc/lucit-cli.git
 ```
+
+Change to the `lucit-cli` directory
+
+```
+cd lucit-cli
+```
+
 
 **2. Initialize your Application**
 
@@ -235,7 +244,35 @@ lucit-cli get /campaigns
 }
 ```
 
+# .lucit-cli.yaml
 
+All configuration settings are stored in .lucit-cli.yaml in your home directory.
+
+On linux this is typically in `~/.lucit-cli.yaml` and in Windows this is typically
+`C:\Users\{YOURNAME}\.lucit-cli.yaml`
+
+The settings in this file are as follows.
+
+Changing id's, tokens and secrets in this file will result in unpredictable behavior
+
+- `lucit_api_url` : This is the url to the API.  This should always be ` https://api.lucit.app/api/v3`
+- `lucit_app_id` : This is your Lucit Application ID
+- `lucit_app_token` : This is your Token
+- `lucit_app_secret` :  This is your secret
+- `lucit_oauth_token` : This is the oauth token that was genenerated when you ran `init`
 
 # More Information
+
 View all of the Lucit developer documentation at https://www.lucit.cc/developers
+
+
+# About Lucit
+
+Founded in 2019, The Lucit Platform allows customers to view, post, edit, manage,
+and schedule their digital billboard creatives in real-time from their desktop or phone,
+and brings connectivity to Automotive, Real Estate, and eCommerce systems by automatically generating
+dynamic creatives from data for digital signage and digital screens.
+
+Lucit is an open development platform for out-of-home, digital billboards, and digital signage
+
+https://www.lucit.cc/

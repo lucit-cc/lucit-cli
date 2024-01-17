@@ -87,7 +87,7 @@ func testConfigFileParams() {
 
 	output.Header("Config File Params")
 
-	params := []string{"lucit_api_url", "lucit_app_id", "lucit_bot_token", "lucit_bot_secret", "lucit_bot_auth_token"}
+	params := []string{"lucit_api_url", "lucit_app_id", "lucit_app_token", "lucit_app_secret", "lucit_oauth_token"}
 
 	for i := 0; i < len(params); i++ {
 		if viper.GetString(params[i]) == "" {

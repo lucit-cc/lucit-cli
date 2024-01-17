@@ -81,7 +81,7 @@ func getApiUrl(endpoint string) string {
 
 	lucitUrl := viper.GetString("lucit_api_url")
 
-	return lucitUrl + "/v3" + endpoint
+	return lucitUrl + endpoint
 }
 
 func getApiClientGetResponse(endpoint string) (responseData []byte, err error) {
@@ -95,8 +95,8 @@ func getApiClientGetResponse(endpoint string) (responseData []byte, err error) {
 	output.InfoIfVerbose("Using v3 token")
 	req.Header.Add("AppIdV3", viper.GetString("lucit_app_id"))
 
-	if viper.GetString("lucit_bot_auth_token") != "" {
-		req.Header.Add("Authorization", "Bearer "+viper.GetString("lucit_bot_auth_token"))
+	if viper.GetString("lucit_oauth_token") != "" {
+		req.Header.Add("Authorization", "Bearer "+viper.GetString("lucit_oauth_token"))
 	}
 
 	response, err := client.Do(req)
@@ -129,8 +129,8 @@ func getApiClientPostResponse(endpoint string, params url.Values) (responseData 
 	output.InfoIfVerbose("Using v3 token")
 	req.Header.Add("AppIdV3", viper.GetString("lucit_app_id"))
 
-	if viper.GetString("lucit_bot_auth_token") != "" {
-		req.Header.Add("Authorization", "Bearer "+viper.GetString("lucit_bot_auth_token"))
+	if viper.GetString("lucit_oauth_token") != "" {
+		req.Header.Add("Authorization", "Bearer "+viper.GetString("lucit_oauth_token"))
 	}
 
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
@@ -225,8 +225,8 @@ func PublicStatus() (responseObject PublicStatusResponse, err error) {
 func Auth() (responseObject AuthResponse, err error) {
 
 	params := url.Values{}
-	params.Add("token", viper.GetString("lucit_bot_token"))
-	params.Add("secret", viper.GetString("lucit_bot_secret"))
+	params.Add("token", viper.GetString("lucit_app_token"))
+	params.Add("secret", viper.GetString("lucit_app_secret"))
 
 	responseData, err := getApiClientPostResponse("/auth", params)
 
