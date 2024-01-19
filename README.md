@@ -26,6 +26,17 @@ Lucit CLI is built on **go** and installed using **git**.  You will need to have
 - `git` installation instructions - https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
 - `go` installation instructions - https://go.dev/doc/install
 
+*Note on installing go on Ubuntu*
+If you are using Ubuntu, here is a sample series of commands you can use to install go version `1.21.6`
+
+```
+cd ~
+wget https://go.dev/dl/go1.21.6.linux-amd64.tar.gz
+sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf go1.21.6.linux-amd64.tar.gz
+export PATH=$PATH:/usr/local/go/bin
+go version
+```
+
 
 **2. Application Id**
 To use the Lucit API - You need an Application ID from the Lucit App you created.
@@ -55,8 +66,28 @@ Change to the `lucit-cli` directory
 cd lucit-cli
 ```
 
+**2. Install and Build your Application**
 
-**2. Initialize your Application**
+Depending on your platform, you can take the following steps
+
+*Windows and MacOS*
+
+The application will be installed to your GOPATH
+
+```
+go install
+```
+
+*Linux*
+
+Install the application to /usr/local/bin
+
+```
+go build -o /usr/local/bin
+```
+
+
+**3. Initialize your Application**
 
 This sets up your install with your Application ID, Token and Secret
 
@@ -64,8 +95,15 @@ It will also retrieve and store your long-lived Bearer Token.
 
 Under the hood, it is making a call to the [/auth](https://apidocs.lucit.app/#auth-POSTapi-v3-auth) endpoint
 
+You will need the following from your app in order to initialize the lucit-cli  (see above)
+
+- **Application ID**
+- **Token**
+- **Secret**
+
+
 ```
-go run main.go init
+lucit-cli init
 ```
 
 
@@ -73,7 +111,7 @@ go run main.go init
 
 
 
-**3.  Test your Settings**
+**4.  Test your Settings**
 
 This will validate that your settings are correct and that you can access the API.
 
@@ -81,17 +119,17 @@ Under the hood it is getting status and app information by making a
 call to the [/status](https://apidocs.lucit.app/#status-GETapi-v3-status) endpoint
 
 ```
-go run main.go test
+lucit-cli  test
 ```
 
 ![test](docs/images/screenshot_test.jpg)
 
 
-**4. Make your first API call**
+**5. Make your first API call**
 
 
 ```
-go run main.go get /status
+lucit-cli  get /status
 ```
 
 The response should look something like the following json
@@ -151,23 +189,6 @@ The response should look something like the following json
   "v3_app_id_sent": "LCUID-LAP-5922ac88-****-*****-*****************"
 }
 ```
-
-
-
-
-**5. Build a binary**
-
-Build and install the `lucit-cli` binary
-
-```
-go install
-```
-
-**6. Use the Binary**
-
-- `lucit-cli init`
-- `lucit-cli test`
-- `lucit-cli get /status`
 
 
 # GET

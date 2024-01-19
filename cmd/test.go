@@ -18,6 +18,11 @@ var testCmd = &cobra.Command{
 	Long:  `Runs a test suite against your Lucit CLI API Configuration.`,
 	Run: func(cmd *cobra.Command, args []string) {
 
+		// If a config file is found, read it in.
+		if err := viper.ReadInConfig(); err != nil {
+			output.ErrorDescriptive("Error Reading config file:", viper.ConfigFileUsed())
+		}
+
 		testConfigFileExists()
 		testConfigFileParams()
 		testApiIsReachable()
