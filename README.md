@@ -195,11 +195,19 @@ The response should look something like the following json
 
 The `get` command simply accepts the endpoint that you are fetching and will return the JSON response from that endpoint
 
-# POST and PUT (Not Supported)
+# POST and PUT
 
-These commands are NOT currently supported
+To make a request to a post (or put) endpoint, the first argument is the endpoint path, and the remaining key=value pairs are the params
 
-`lucit-cli` can only be used (currently) to make requests to `GET` endpoints.
+For example, to create anew account
+
+```
+lucit-cli post /accounts name="My first account" agency_lcuid=LCUID-LY-506fc585-77be-11ec-acb9-c2cdb617d190
+```
+
+This will create a new account, attached to the agency with the lcuid of `LCUID-LY-506fc585-77be-11ec-acb9-c2cdb617d190`
+
+To use `put` simply use `lucit-cli put .....`
 
 # Some quick Examples
 

@@ -154,6 +154,42 @@ func getApiClientPostResponse(endpoint string, params url.Values) (responseData 
 	return responseData, nil
 }
 
+func getApiClientPutResponse(endpoint string, params url.Values) (responseData []byte, err error) {
+
+	apiUrl := getApiUrl(endpoint)
+
+	client := &http.Client{}
+
+	req, err := http.NewRequest("PUT", apiUrl, strings.NewReader(params.Encode()))
+
+	output.InfoIfVerbose("Using v3 token")
+	req.Header.Add("AppIdV3", viper.GetString("lucit_app_id"))
+
+	if viper.GetString("lucit_oauth_token") != "" {
+		req.Header.Add("Authorization", "Bearer "+viper.GetString("lucit_oauth_token"))
+	}
+
+	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+
+	response, err := client.Do(req)
+
+	if err != nil {
+		output.Error(err.Error())
+		return
+	}
+
+	OutputCommonErrors(response)
+
+	responseData, err = ioutil.ReadAll(response.Body)
+
+	if err != nil {
+		output.Error(err.Error())
+		return
+	}
+
+	return responseData, nil
+}
+
 func OutputCommonErrors(response *http.Response) {
 
 	output.InfoIfVerbose("Status Code : " + response.Status)
@@ -184,6 +220,47 @@ func OutputCommonErrors(response *http.Response) {
 func Endpoint(endpoint string) (responseJSONString string, err error) {
 
 	responseData, err := getApiClientGetResponse(endpoint)
+
+	if err != nil {
+		return
+	}
+
+	if err != nil {
+		output.Error(err.Error())
+		return
+	}
+
+	output.InfoIfVerbose("Response Data : " + string(responseData))
+
+	responseJSONString = string(responseData)
+
+	return
+}
+
+// Post returns an API Response as a JSON string, but uses getApiClientPostResponse
+func Post(endpoint string, params url.Values) (responseJSONString string, err error) {
+
+	responseData, err := getApiClientPostResponse(endpoint, params)
+
+	if err != nil {
+		return
+	}
+
+	if err != nil {
+		output.Error(err.Error())
+		return
+	}
+
+	output.InfoIfVerbose("Response Data : " + string(responseData))
+
+	responseJSONString = string(responseData)
+
+	return
+}
+
+func Put(endpoint string, params url.Values) (responseJSONString string, err error) {
+
+	responseData, err := getApiClientPutResponse(endpoint, params)
 
 	if err != nil {
 		return
@@ -293,4 +370,9 @@ func Status() (responseObject StatusResponse, err error) {
 
 	return
 
+}
+
+func SplitParam(param string) []string {
+	kv := strings.SplitN(param, "=", 2)
+	return kv
 }
